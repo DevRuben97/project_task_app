@@ -3,6 +3,8 @@ import { Form, Input, Button } from "antd";
 import { UserOutlined, MailOutlined, KeyOutlined } from "@ant-design/icons";
 import { Formik } from "formik";
 
+import {REGISTER_SCHEMA} from '../../helpers/formValidations/User';
+
 const NewUser = () => {
   const [initialValues, setInitialValues] = useState({
     email: "",
@@ -16,17 +18,16 @@ const NewUser = () => {
 
   return (
     <div>
-      <Formik initialValues={initialValues} onSubmit={register}>
-        {({ handleSubmit, setFieldValue,values }) => (
+      <Formik initialValues={initialValues} onSubmit={register} validationSchema={REGISTER_SCHEMA}>
+        {({ handleSubmit, setFieldValue,values, errors }) => (
           <Form layout="vertical" onFinish={handleSubmit}>
             <Form.Item
               label="Correo Electronico"
               name="email"
               valuePropName="email"
-              rules={[
-                { required: true, message: "Ingrese su correo electronico" },
-                {type: 'email', message: 'Ingrese un correo electronico valido'}
-              ]}
+              required
+              validateStatus={errors.email? 'error': 'success'}
+              help={errors.email}
             >
               <Input
                 placeholder="Ingrese su correo"
@@ -40,9 +41,9 @@ const NewUser = () => {
               label="Nombre Completo"
               name="fullName"
               valuePropName="fullName"
-              rules={[
-                { required: true, message: "Ingrese su nombre y apeliido" },
-              ]}
+              required
+              validateStatus={errors.fullName? 'error': 'success'}
+              help={errors.fullName}
             >
               <Input
                 placeholder="Ingrese su nombre completo"
@@ -56,9 +57,9 @@ const NewUser = () => {
               label="Contraseña"
               name="password"
               valuePropName="password"
-              rules={[
-                { required: true, message: "Ingrese una contraseña valida" },
-              ]}
+              required
+              validateStatus={errors.password? 'error': 'success'}
+              help={errors.password}
             >
               <Input.Password
                 placeholder="Ingrese su contraseña"
@@ -71,8 +72,9 @@ const NewUser = () => {
             <Form.Item
               label="Confirme la contraseña"
               name="confirm"
-              hasFeedback
-              dependencies={['password']}
+              required
+              validateStatus={errors.confirmPassword? 'error': 'success'}
+              help={errors.confirmPassword}
             >
               <Input.Password
                 placeholder="Ingrese su contraseña"

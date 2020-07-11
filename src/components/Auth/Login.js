@@ -40,7 +40,7 @@ const Login = () => {
                   valuePropName="password"
                   rules={[{ required: true, message: "Ingrese su correo electronico" }]}
                 >
-                  <Input.Password placeholder="Ingrese su correo" prefix={<KeyOutlined/>} onChange={(e)=> setFieldValue('password', e.target.value)}/>
+                  <Input.Password placeholder="Ingrese su contraseña" prefix={<KeyOutlined/>} onChange={(e)=> setFieldValue('password', e.target.value)}/>
                 </Form.Item>
         
                 <Form.Item>

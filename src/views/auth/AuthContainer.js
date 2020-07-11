@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Background from "../../assets/img/cool-background.png";
 
 import Login from "../../components/Auth/Login";
+import NewUser from '../../components/Auth/NewUser';
 
 import { Card } from "antd";
 
@@ -33,7 +34,7 @@ const tabList = [
 
 const contentList = {
   login: <Login />,
-  register: <p>En desarrollo</p>,
+  register: <NewUser/>
 };
 
 const AuthContainer = () => {

@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useState, useContext } from "react";
 import { Form, Input, Button } from "antd";
 import { UserOutlined,MailOutlined, KeyOutlined  } from "@ant-design/icons";
 import { Formik } from "formik";
 
 import {LOGIN_SCHEMA} from '../../helpers/formValidations/User'
 import {success} from '../../helpers/Message/MessageManager';
+
+import AuthContext from '../../context/AuthContext';
 
 const Login = () => {
   const [initialValues, setInitialValues] = useState({
@@ -14,10 +15,15 @@ const Login = () => {
   });
 
   const [loading, setLoading]= useState(false);
+  const {setLogged}= useContext(AuthContext);
 
  async function login(values){
       setLoading(true);
-      await success('Bienvenido Ruben Batista','Inicio de Sesión')
+      const ok= await success('Bienvenido Ruben Batista','Inicio de Sesión')
+      if (ok){
+          setLogged(true);
+          localStorage.setItem('logged', 'true');
+      }
   }
 
   return (

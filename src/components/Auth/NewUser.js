@@ -3,39 +3,46 @@ import { Form, Input, Button } from "antd";
 import { UserOutlined, MailOutlined, KeyOutlined } from "@ant-design/icons";
 import { Formik } from "formik";
 
-import {REGISTER_SCHEMA} from '../../helpers/formValidations/User';
-import {success} from '../../helpers/Message/MessageManager';
+import { REGISTER_SCHEMA } from "../../helpers/formValidations/User";
+import { success } from "../../helpers/Message/MessageManager";
 
-const NewUser = ({setTabIndex}) => {
+const NewUser = ({ setTabIndex }) => {
   const [initialValues, setInitialValues] = useState({
     email: "",
     password: "",
     confirmPassword: "",
-    fullName: ""
+    fullName: "",
   });
 
-  const [loading, setLoading]= useState(false);
+  const [loading, setLoading] = useState(false);
 
   async function register(values) {
     setLoading(true);
-    const ok= await success('Usuario registrado correctamente', 'Registro de Usuario');
-    if (ok){
-        setLoading(false);
-        setTabIndex('login');
+    const ok = await success(
+      "Usuario registrado correctamente",
+      "Registro de Usuario"
+    );
+    if (ok) {
+      setLoading(false);
+      setTabIndex("login");
     }
   }
 
   return (
     <div>
-      <Formik initialValues={initialValues} onSubmit={register} validationSchema={REGISTER_SCHEMA}>
-        {({ handleSubmit, setFieldValue,values, errors }) => (
+      <Formik
+        initialValues={initialValues}
+        onSubmit={register}
+        validationSchema={REGISTER_SCHEMA}
+      >
+        {({ handleSubmit, setFieldValue, values, errors }) => (
           <Form layout="vertical" onFinish={handleSubmit}>
             <Form.Item
               label="Correo Electronico"
               name="email"
               valuePropName="email"
               required
-              validateStatus={errors.email? 'error': 'success'}
+              validateStatus={errors.email ? "error" : "success"}
               help={errors.email}
             >
               <Input
@@ -52,7 +59,7 @@ const NewUser = ({setTabIndex}) => {
               name="fullName"
               valuePropName="fullName"
               required
-              validateStatus={errors.fullName? 'error': 'success'}
+              validateStatus={errors.fullName ? "error" : "success"}
               help={errors.fullName}
             >
               <Input
@@ -69,7 +76,7 @@ const NewUser = ({setTabIndex}) => {
               name="password"
               valuePropName="password"
               required
-              validateStatus={errors.password? 'error': 'success'}
+              validateStatus={errors.password ? "error" : "success"}
               help={errors.password}
             >
               <Input.Password
@@ -85,14 +92,16 @@ const NewUser = ({setTabIndex}) => {
               label="Confirme la contraseña"
               name="confirm"
               required
-              validateStatus={errors.confirmPassword? 'error': 'success'}
+              validateStatus={errors.confirmPassword ? "error" : "success"}
               help={errors.confirmPassword}
             >
               <Input.Password
                 placeholder="Ingrese su contraseña"
                 prefix={<KeyOutlined />}
                 size="large"
-                onChange={(e)=> setFieldValue('confirmPassword',e.target.value)}
+                onChange={(e) =>
+                  setFieldValue("confirmPassword", e.target.value)
+                }
               />
             </Form.Item>
 
@@ -106,7 +115,7 @@ const NewUser = ({setTabIndex}) => {
                 icon={<UserOutlined />}
                 loading={loading}
               >
-                {!loading? "Enviar Datos": "Enviando Datos.."}
+                {!loading ? "Enviar Datos" : "Enviando Datos.."}
               </Button>
             </Form.Item>
           </Form>

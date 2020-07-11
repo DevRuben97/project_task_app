@@ -7,10 +7,10 @@ const Projects= ()=> {
 
     return (
         <div>
-
+            <h2>Bienvenido</h2>
         </div>
     )
 }
 
 
-return withRouter(Projects)
+export default withRouter(Projects)

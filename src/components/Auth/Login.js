@@ -4,14 +4,20 @@ import { Form, Input, Button } from "antd";
 import { UserOutlined,MailOutlined, KeyOutlined  } from "@ant-design/icons";
 import { Formik } from "formik";
 
+import {LOGIN_SCHEMA} from '../../helpers/formValidations/User'
+import {success} from '../../helpers/Message/MessageManager';
+
 const Login = () => {
   const [initialValues, setInitialValues] = useState({
     email: '',
     password: '',
   });
 
-  function login(values){
-      console.log(values)
+  const [loading, setLoading]= useState(false);
+
+ async function login(values){
+      setLoading(true);
+      await success('Bienvenido Ruben Batista','Inicio de Sesión')
   }
 
   return (
@@ -19,8 +25,9 @@ const Login = () => {
      <Formik
      initialValues={initialValues}
      onSubmit={login}
+     validationSchema={LOGIN_SCHEMA}
      >
-         {({handleSubmit, setFieldValue})=> (
+         {({handleSubmit, setFieldValue,values, errors})=> (
               <Form
               layout="vertical"
               onFinish={handleSubmit}
@@ -29,7 +36,9 @@ const Login = () => {
                   label="Correo Electronico"
                   name="email"
                   valuePropName="email"
-                  rules={[{ required: true, message: "Ingrese su correo electronico" }]}
+                  required
+                  validateStatus={errors.email? 'error': 'success'}
+                  help={errors.email}
                 >
                   <Input placeholder="Ingrese su correo" prefix={<MailOutlined />} onChange={(e)=> setFieldValue('email', e.target.value )}/>
                 </Form.Item>
@@ -38,7 +47,8 @@ const Login = () => {
                   label="Contraseña"
                   name="password"
                   valuePropName="password"
-                  rules={[{ required: true, message: "Ingrese su correo electronico" }]}
+                  validateStatus={errors.password? 'error': 'success'}
+                  help={errors.password}
                 >
                   <Input.Password placeholder="Ingrese su contraseña" prefix={<KeyOutlined/>} onChange={(e)=> setFieldValue('password', e.target.value)}/>
                 </Form.Item>
@@ -51,6 +61,7 @@ const Login = () => {
                     size="large"
                     block={true}
                     icon={<UserOutlined />}
+                    loading={loading}
                   >
                     Ingresar
                   </Button>

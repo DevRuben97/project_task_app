@@ -24,7 +24,7 @@ padding-top: 20vh;
 const tabList = [
   {
     key: "login",
-    tab: "Inicio Sessión",
+    tab: "Inicio Sesión",
   },
   {
     key: "register",
@@ -32,13 +32,13 @@ const tabList = [
   },
 ];
 
-const contentList = {
-  login: <Login />,
-  register: <NewUser/>
-};
-
 const AuthContainer = () => {
   const [activeKey, setActiveKey] = useState("login");
+
+  const contentList = {
+    login: <Login />,
+    register: <NewUser setTabIndex= {setActiveKey}/>
+  };
 
   return (
     <Container image={Background}>

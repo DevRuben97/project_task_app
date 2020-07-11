@@ -4,16 +4,25 @@ import { UserOutlined, MailOutlined, KeyOutlined } from "@ant-design/icons";
 import { Formik } from "formik";
 
 import {REGISTER_SCHEMA} from '../../helpers/formValidations/User';
+import {success} from '../../helpers/Message/MessageManager';
 
-const NewUser = () => {
+const NewUser = ({setTabIndex}) => {
   const [initialValues, setInitialValues] = useState({
     email: "",
     password: "",
-    fullName: "",
+    confirmPassword: "",
+    fullName: ""
   });
 
-  function register(values) {
+  const [loading, setLoading]= useState(false);
 
+  async function register(values) {
+    setLoading(true);
+    const ok= await success('Usuario registrado correctamente', 'Registro de Usuario');
+    if (ok){
+        setLoading(false);
+        setTabIndex('login');
+    }
   }
 
   return (
@@ -34,6 +43,7 @@ const NewUser = () => {
                 prefix={<MailOutlined />}
                 onChange={(e) => setFieldValue("email", e.target.value)}
                 size="large"
+                value={values.email}
               />
             </Form.Item>
 
@@ -50,6 +60,7 @@ const NewUser = () => {
                 prefix={<UserOutlined />}
                 onChange={(e) => setFieldValue("fullName", e.target.value)}
                 size="large"
+                value={values.fullName}
               />
             </Form.Item>
 
@@ -66,6 +77,7 @@ const NewUser = () => {
                 prefix={<KeyOutlined />}
                 onChange={(e) => setFieldValue("password", e.target.value)}
                 size="large"
+                value={values.password}
               />
             </Form.Item>
 
@@ -80,6 +92,7 @@ const NewUser = () => {
                 placeholder="Ingrese su contraseña"
                 prefix={<KeyOutlined />}
                 size="large"
+                onChange={(e)=> setFieldValue('confirmPassword',e.target.value)}
               />
             </Form.Item>
 
@@ -91,8 +104,9 @@ const NewUser = () => {
                 size="large"
                 block={true}
                 icon={<UserOutlined />}
+                loading={loading}
               >
-                Enviar Datos
+                {!loading? "Enviar Datos": "Enviando Datos.."}
               </Button>
             </Form.Item>
           </Form>

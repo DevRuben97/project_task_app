@@ -29,7 +29,7 @@ const Layout = () => {
           <SiteConteiner>
               <Switch>
                 {authenticatedRoutes.map((item, index)=> (
-                    <Route path={item.path} component={item.index} key={index}/>
+                    <Route path={item.path} component={item.index} exact={item.exact} key={index}/>
                 ))}
               </Switch>
             </SiteConteiner>

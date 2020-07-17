@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import { withRouter } from 'react-router-dom';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 import {v4 as uuid} from 'uuid';
-import Column from 'antd/lib/table/Column';
+import ColumnTasks from '../../components/TaskBoard/ColumnTasks';
 
 
 const columnsFromBankend= [
@@ -65,28 +65,7 @@ const TaskBoard= ()=> {
                             minHeight: 500
                             }}
                             >
-                                {column.items.map((task, index)=> (
-                                    <Draggable key={task.id} draggableId={task.id} index={index}>
-                                        {(TaskProvided, Tasksnapshot)=> (
-                                            <div 
-                                            ref={TaskProvided.innerRef} 
-                                            {...TaskProvided.draggableProps}
-                                            {...TaskProvided.dragHandleProps}
-                                            style={{
-                                                userSelect: 'none',
-                                                padding: 16,
-                                                margin: '0 0 8px 0',
-                                                minHeight: '50px',
-                                                backgroundColor: Tasksnapshot.isDragging? '#263B4A': '#456C86',
-                                                color: 'white',
-                                                ...TaskProvided.draggableProps.style
-                                            }}
-                                            >
-                                                {task.content}
-                                            </div>
-                                        )}
-                                    </Draggable>
-                                ))}
+                                <ColumnTasks items={column.items}/>
                                 {provided.placeholder}
                             </div>
                         )}

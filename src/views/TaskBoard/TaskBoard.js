@@ -1,8 +1,9 @@
-import React,{useState} from 'react';
+import React,{useState, Fragment} from 'react';
 import { withRouter } from 'react-router-dom';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 import {v4 as uuid} from 'uuid';
-import ColumnTasks from '../../components/TaskBoard/ColumnTasks';
+import BoardColumns from '../../components/TaskBoard/BoardColumns';
+import FormTask from '../../components/TaskBoard/FormTask';
 
 
 const columnsFromBankend= [
@@ -40,7 +41,10 @@ const columnsFromBankend= [
 
 const TaskBoard= ()=> {
 
+    //States:
     const [columns, setColumsn]= useState(columnsFromBankend);
+    const [showModal, setShowModal]= useState(false);
+    
 
     function DragEnd(result, columns, setColumns){
         if (!result.destination) return;
@@ -48,31 +52,23 @@ const TaskBoard= ()=> {
         const {source, destination}= result;
     }
 
+    function TaskSelect(){
+        setShowModal(true);
+    }
 
     return (
-        <div style={{display: 'flex', justifyContent: 'center', height: '100%'}}>
+        <Fragment>
+            <div style={{display: 'flex', justifyContent: 'center', height: '100%'}}>
             <DragDropContext onDragEnd={DragEnd}>
-                {columns.map((column)=> (
-                    <Droppable droppableId={column.id}>
-                        {(provided, snapshot)=> (
-                            <div
-                            {...provided.droppableProps}
-                            ref={provided.innerRef}
-                            style={{
-                            background: snapshot.isDraggingOver? 'blue': 'gray',
-                            padding: 4,
-                            width: 250,
-                            minHeight: 500
-                            }}
-                            >
-                                <ColumnTasks items={column.items}/>
-                                {provided.placeholder}
-                            </div>
-                        )}
-                    </Droppable>
-                ))}
+               <BoardColumns columns={columns} onTaskSelect={TaskSelect}/>
             </DragDropContext>
-        </div>
+
+            </div>
+            <FormTask
+            show={showModal}
+            setShowModal={setShowModal}
+            />
+        </Fragment>
     )
 }
 

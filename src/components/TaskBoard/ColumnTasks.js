@@ -17,7 +17,8 @@ align-items: center;
 justify-content: space-between;
 `
 
-const ColumnTasks = ({ items }) => {
+const ColumnTasks = ({ items, onTaskSelect }) => {
+
   return (
     <Fragment>
       {items.map((task, index) => (
@@ -29,6 +30,8 @@ const ColumnTasks = ({ items }) => {
               {...TaskProvided.draggableProps}
               {...TaskProvided.dragHandleProps}
               style={{...TaskProvided.draggableProps.style}}
+              onClick={onTaskSelect}
+
             >
              <div>
              <h2>{task.content}</h2>

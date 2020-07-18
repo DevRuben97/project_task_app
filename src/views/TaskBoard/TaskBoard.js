@@ -51,6 +51,7 @@ const TaskBoard = () => {
   function TaskSelect(task) {
     setShowModal(true);
     setTaskId(task);
+    console.log(task);
   }
 
   return (

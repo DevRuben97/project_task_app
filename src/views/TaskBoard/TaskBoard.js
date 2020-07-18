@@ -1,9 +1,11 @@
 import React, { useState, Fragment } from "react";
 import { withRouter } from "react-router-dom";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { DragDropContext } from "react-beautiful-dnd";
 import { v4 as uuid } from "uuid";
 import BoardColumns from "../../components/TaskBoard/BoardColumns";
 import FormTask from "../../components/TaskBoard/FormTask";
+
+import ViewHeader from '../../components/ViewHeader';
 
 const columnsFromBankend = [
   {
@@ -12,25 +14,25 @@ const columnsFromBankend = [
     items: [
       {
         id: uuid(),
-        content: "Primera tarea",
+        content: "Modificar el mantenimiento de contactos",
       },
       {
         id: uuid(),
-        content: "Segunda tarea",
+        content: "Crear api de seguimientos",
       },
     ],
   },
   {
     id: uuid(),
-    name: "Por Hacer",
+    name: "En Progreso",
     items: [
       {
         id: uuid(),
-        content: "Primera tarea",
+        content: "Crear TaskBoard",
       },
       {
         id: uuid(),
-        content: "Segunda tarea",
+        content: "Refactorizar el codigo del bankend",
       },
     ],
   },
@@ -56,6 +58,14 @@ const TaskBoard = () => {
 
   return (
     <Fragment>
+        <ViewHeader
+        title="Proyecto de Prueba"
+        subTitle="Seguimiento de las Tareas"
+        createButton={{
+            text: 'Crear Tarea',
+            onClick: ()=> setShowModal(true)
+        }}
+        />
       <div
         style={{ display: "flex", justifyContent: "center", height: "100%" }}
       >

@@ -5,19 +5,13 @@ import { PlusCircleOutlined } from "@ant-design/icons";
 
 import ProjectItem from "../../components/projects/ProjectItem";
 import FormProject from "../../components/projects/FormProject";
+import ViewHeader from "../../components/ViewHeader";
 
 import styled from "styled-components";
 
 const Conteiner = styled.div`
   width: 70%;
   margin: 0 auto;
-`;
-
-const HeaderContainer = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 `;
 
 const Projects = () => {
@@ -40,14 +34,16 @@ const Projects = () => {
 
   return (
     <Fragment>
+      <ViewHeader
+        title="Listado de Proyectos"
+        showBackIcon={false}
+        createButton={{
+          text: "Crear Proyecto",
+          onClick: () => setShowModal(true),
+        }}
+      />
       <Conteiner>
         <div style={{ marginTop: "15px", textAlign: "center" }}>
-          <HeaderContainer>
-            <h2>Listado de Proyectos</h2>
-            <Button type="primary" onClick={add_project}>
-              <PlusCircleOutlined /> Nuevo Proyecto
-            </Button>
-          </HeaderContainer>
           {projects.map((item, index) => (
             <ProjectItem projectInfo={item.name} key={index} />
           ))}

@@ -13,10 +13,8 @@ const ColumnContainer = styled.div`
 `;
 
 const ColumnHeader = styled.div`
-  background-color: #f4f5f7;
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
+padding-bottom: 5px;
+text-align: center;
 `;
 
 const BoardColumns = ({ columns, onTaskSelect }) => {
@@ -31,6 +29,9 @@ const BoardColumns = ({ columns, onTaskSelect }) => {
                 ref={provided.innerRef}
                 isDraggingOver={snapshot.isDraggingOver}
               >
+                <ColumnHeader>
+                    {column.name}
+                </ColumnHeader>
                 <ColumnTasks items={column.items} onTaskSelect={onTaskSelect} />
                 {provided.placeholder}
               </ColumnContainer>

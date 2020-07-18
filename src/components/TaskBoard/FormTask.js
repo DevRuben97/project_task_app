@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Modal, Form, Input, Divider } from "antd";
+import { Modal, Form, Input, Divider, Button } from "antd";
+import {CheckOutlined} from '@ant-design/icons'
 
 import Select from "../Select";
 import UploadFiles from "../UploadFiles";
@@ -24,7 +25,7 @@ const selectOptions = [
 ];
 
 const FormTask = ({ edit, taskId, show, setShowModal }) => {
-  const [loading, setIsLoading] = useState(false);
+
   const [stateOptions, setStateOptions] = useState(selectOptions);
 
   function save() {}
@@ -32,18 +33,16 @@ const FormTask = ({ edit, taskId, show, setShowModal }) => {
   return (
     <Modal
       visible={show}
-      title={edit ? "Editar Proyecto" : "Nuevo Proyecto"}
+      title={edit ? "Editar Tarea" : "Nueva Tarea"}
       onOk={save}
       onCancel={() => setShowModal(false)}
-      okText="Guardar"
-      okType="primary"
+      footer={false}
       cancelText="Cancelar"
-      confirmLoading={loading}
       width="800px"
     >
       <GridContainer>
         <Form layout="vertical">
-          <FormItem label="Titulo">
+          <FormItem label="Titulo" >
             <Input
               type="text"
               placeholder="Introduce el nombre de la tarea"
@@ -51,7 +50,7 @@ const FormTask = ({ edit, taskId, show, setShowModal }) => {
             />
           </FormItem>
           <FormItem label="Descripción">
-            <Input.TextArea />
+            <Input.TextArea autoSize />
           </FormItem>
           <Divider plain>Adjuntar Archivos</Divider>
           <UploadFiles />
@@ -61,21 +60,33 @@ const FormTask = ({ edit, taskId, show, setShowModal }) => {
           <UserComments taskId={taskId} />
         </Form>
         <StateContainer>
-          <div style={{ marginTop: "6px" }}>
-            <label>Estado</label>
+          <div style={{ marginTop: "12px" }}>
+            <label>Estado: </label>
             <Select
               options={stateOptions}
               onOptionChange={(value) => console.log(value)}
               width="100%"
+              withBorder={false}
+              arrow={false}
             />
           </div>
-          <div style={{ marginTop: "6px" }}>
-            <label>Responsable</label>
+          <div style={{ marginTop: "12px" }}>
+            <label>Responsable:</label>
             <Select
               options={stateOptions}
               onOptionChange={(value) => console.log(value)}
               width="100%"
+              withBorder={false}
+              arrow={false}
             />
+          </div>
+          <div style={{ marginTop: "12px" }}>
+            <label>Creador:</label>
+            <Input type="text" readOnly disabled style={{border: 'none'}}/>
+          </div>
+          <div style={{ marginTop: "12px" }}>
+            <label>Finalización</label>
+            <Input type="date"/>
           </div>
         </StateContainer>
       </GridContainer>

@@ -35,8 +35,7 @@ const ColumnTasks = ({ items, onTaskSelect }) => {
 
             >
              <div>
-             <h2>{task.content}</h2>
-              <label>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  </label>
+              <label>{task.content}</label>
              </div>
              <Divider/>
               <CardActions>

@@ -19,6 +19,9 @@ justify-content: space-between;
 
 const ColumnTasks = ({ items, onTaskSelect }) => {
 
+  function task_select(){
+    onTaskSelect('TASK-0001');
+  }
   return (
     <Fragment>
       {items.map((task, index) => (
@@ -30,7 +33,7 @@ const ColumnTasks = ({ items, onTaskSelect }) => {
               {...TaskProvided.draggableProps}
               {...TaskProvided.dragHandleProps}
               style={{...TaskProvided.draggableProps.style}}
-              onClick={onTaskSelect}
+              onClick={task_select}
 
             >
              <div>

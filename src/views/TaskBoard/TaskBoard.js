@@ -1,78 +1,70 @@
-import React,{useState, Fragment} from 'react';
-import { withRouter } from 'react-router-dom';
-import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
-import {v4 as uuid} from 'uuid';
-import BoardColumns from '../../components/TaskBoard/BoardColumns';
-import FormTask from '../../components/TaskBoard/FormTask';
+import React, { useState, Fragment } from "react";
+import { withRouter } from "react-router-dom";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { v4 as uuid } from "uuid";
+import BoardColumns from "../../components/TaskBoard/BoardColumns";
+import FormTask from "../../components/TaskBoard/FormTask";
 
-
-const columnsFromBankend= [
-    {
+const columnsFromBankend = [
+  {
+    id: uuid(),
+    name: "Por Hacer",
+    items: [
+      {
         id: uuid(),
-        name: 'Por Hacer',
-        items: [
-            {
-                id: uuid(),
-                content: 'Primera tarea'
-            },
-            {
-                id: uuid(),
-                content: 'Segunda tarea'
-            }
-        ]
-
-    },
-    {
+        content: "Primera tarea",
+      },
+      {
         id: uuid(),
-        name: 'Por Hacer',
-        items: [
-            {
-                id: uuid(),
-                content: 'Primera tarea'
-            },
-            {
-                id: uuid(),
-                content: 'Segunda tarea'
-            }
-        ]
+        content: "Segunda tarea",
+      },
+    ],
+  },
+  {
+    id: uuid(),
+    name: "Por Hacer",
+    items: [
+      {
+        id: uuid(),
+        content: "Primera tarea",
+      },
+      {
+        id: uuid(),
+        content: "Segunda tarea",
+      },
+    ],
+  },
+];
 
-    }
-]
+const TaskBoard = () => {
+  //States:
+  const [columns, setColumsn] = useState(columnsFromBankend);
+  const [showModal, setShowModal] = useState(false);
+  const [taskId, setTaskId] = useState(null);
 
-const TaskBoard= ()=> {
+  function DragEnd(result, columns, setColumns) {
+    if (!result.destination) return;
 
-    //States:
-    const [columns, setColumsn]= useState(columnsFromBankend);
-    const [showModal, setShowModal]= useState(false);
-    
+    const { source, destination } = result;
+  }
 
-    function DragEnd(result, columns, setColumns){
-        if (!result.destination) return;
+  function TaskSelect(task) {
+    setShowModal(true);
+    setTaskId(task);
+  }
 
-        const {source, destination}= result;
-    }
-
-    function TaskSelect(){
-        setShowModal(true);
-    }
-
-    return (
-        <Fragment>
-            <div style={{display: 'flex', justifyContent: 'center', height: '100%'}}>
-            <DragDropContext onDragEnd={DragEnd}>
-               <BoardColumns columns={columns} onTaskSelect={TaskSelect}/>
-            </DragDropContext>
-
-            </div>
-            <FormTask
-            show={showModal}
-            setShowModal={setShowModal}
-            />
-        </Fragment>
-    )
-}
-
+  return (
+    <Fragment>
+      <div
+        style={{ display: "flex", justifyContent: "center", height: "100%" }}
+      >
+        <DragDropContext onDragEnd={DragEnd}>
+          <BoardColumns columns={columns} onTaskSelect={TaskSelect} />
+        </DragDropContext>
+      </div>
+      <FormTask show={showModal} setShowModal={setShowModal} taskId={taskId} />
+    </Fragment>
+  );
+};
 
 export default withRouter(TaskBoard);
-
-

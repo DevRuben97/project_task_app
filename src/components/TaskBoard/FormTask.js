@@ -1,71 +1,86 @@
-import React, {useState} from 'react';
-import styled from 'styled-components';
-import {Modal, Form, Input} from 'antd';
-import Select from '../Select';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { Modal, Form, Input, Divider } from "antd";
 
-const FormItem= Form.Item;
+import Select from "../Select";
+import UploadFiles from "../UploadFiles";
+import CommentInput from "./CommentInput";
+import UserComments from "./UserComments";
 
-const GridContainer= styled.div`
-display: grid;
-grid-template-columns: 1fr 150px;
-grid-gap: 10px;
-`
-const StateContainer= styled.div`
-grid-column: 2/3;
-`
+const FormItem = Form.Item;
 
-const selectOptions= 
-[
-    {label: 'Por Hacer', value: 1}, 
-    {label: 'En Progreso', value: 2}
-]
+const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 150px;
+  grid-gap: 10px;
+`;
+const StateContainer = styled.div`
+  grid-column: 2/3;
+`;
 
-const FormTask= ({edit, taskId, show, setShowModal})=> {
+const selectOptions = [
+  { label: "Por Hacer", value: 1 },
+  { label: "En Progreso", value: 2 },
+];
 
-    const [loading, setIsLoading]= useState(false);
-    const [stateOptions, setStateOptions]= useState(selectOptions);
+const FormTask = ({ edit, taskId, show, setShowModal }) => {
+  const [loading, setIsLoading] = useState(false);
+  const [stateOptions, setStateOptions] = useState(selectOptions);
 
-    function save(){
-        
-    }
+  function save() {}
 
-    return (
-        <Modal 
-        visible={show}
-        title={edit? 'Editar Proyecto': 'Nuevo Proyecto'}
-        onOk={save}
-        onCancel={()=> setShowModal(false)}
-        okText="Guardar"
-        okType="primary"
-        cancelText="Cancelar"
-        confirmLoading={loading}
-        width="800px"
-        >
-           <GridContainer>
-           <Form 
-            layout='vertical'
-            >
-                <FormItem
-                label="Titulo"
-                >
-                    <Input type="text" placeholder="Introduce el nombre de la tarea" size="large"/>
-                </FormItem>
-                <FormItem
-                label="Descripción"
-                >
-                    <Input.TextArea />
-                </FormItem>
-            </Form>
-            <StateContainer>
-                <div style={{marginTop: '6px'}}>
-                <label>Estado</label>
-                <Select options={stateOptions} onOptionChange={(value)=> console.log(value)} width='100%'/>
-                </div>
-            </StateContainer>
-           </GridContainer>
-        </Modal>
-    )
-}
-
+  return (
+    <Modal
+      visible={show}
+      title={edit ? "Editar Proyecto" : "Nuevo Proyecto"}
+      onOk={save}
+      onCancel={() => setShowModal(false)}
+      okText="Guardar"
+      okType="primary"
+      cancelText="Cancelar"
+      confirmLoading={loading}
+      width="800px"
+    >
+      <GridContainer>
+        <Form layout="vertical">
+          <FormItem label="Titulo">
+            <Input
+              type="text"
+              placeholder="Introduce el nombre de la tarea"
+              size="large"
+            />
+          </FormItem>
+          <FormItem label="Descripción">
+            <Input.TextArea />
+          </FormItem>
+          <Divider plain>Adjuntar Archivos</Divider>
+          <UploadFiles />
+          <br />
+          <Divider plain>Comentarios</Divider>
+          <CommentInput />
+          <UserComments taskId={taskId} />
+        </Form>
+        <StateContainer>
+          <div style={{ marginTop: "6px" }}>
+            <label>Estado</label>
+            <Select
+              options={stateOptions}
+              onOptionChange={(value) => console.log(value)}
+              width="100%"
+            />
+          </div>
+          <div style={{ marginTop: "6px" }}>
+            <label>Responsable</label>
+            <Select
+              options={stateOptions}
+              onOptionChange={(value) => console.log(value)}
+              width="100%"
+            />
+          </div>
+        </StateContainer>
+      </GridContainer>
+    </Modal>
+  );
+};
 
 export default FormTask;

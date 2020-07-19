@@ -67,6 +67,7 @@ const TaskBoard = () => {
         }}
         />
       <div
+        
         style={{ display: "flex", justifyContent: "center", height: "100%" }}
       >
         <DragDropContext onDragEnd={DragEnd}>

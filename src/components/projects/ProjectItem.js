@@ -4,6 +4,8 @@ import {ProjectOutlined} from '@ant-design/icons';
 import styled from 'styled-components';
 import {withRouter} from 'react-router-dom'
 
+import {EditOutlined, DownOutlined,CloseOutlined } from '@ant-design/icons';
+
 const CardItem= styled(Card.Grid)`
 width: 25%;
 text-align: center;
@@ -11,6 +13,7 @@ display: flex;
 align-items: center;
 flex-direction: column;
 cursor: pointer;
+}
 `
 
 const ProjectItem= ({projectInfo, history})=> {

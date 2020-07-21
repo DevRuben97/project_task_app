@@ -8,6 +8,11 @@ const Item= List.Item;
 const Meta= List.Item.Meta;
 
 
+const ItemContainer= styled(Item)`
+border-bottom: 1px groove black !important;
+`
+
+
 const ProjectItem= ({id,name,description,onEdit, history})=> {
 
     function taskBoard(){
@@ -16,10 +21,10 @@ const ProjectItem= ({id,name,description,onEdit, history})=> {
 
     return (
     <div>
-        <Item style={{textAlign: 'left', fontSize: '25px'}} actions={[
+        <ItemContainer style={{textAlign: 'left', fontSize: '25px'}} actions={[
             <Tooltip title="Ir al Tablero"><Button key={id} type="text" onClick={taskBoard}><ArrowRightOutlined /></Button></Tooltip>,
             <Tooltip title="Ver Miembros"><Button key={id} type="text"><TeamOutlined/></Button></Tooltip>,
-            <Tooltip title="Editar Proyecto"><Button key={id} type="text" onClick={onEdit}><EditOutlined/></Button></Tooltip>
+            <Tooltip title="Editar Proyecto"><Button key={id} type="text" onClick={onEdit}><EditOutlined/></Button></Tooltip>,
         ]}
         >
             <Meta
@@ -27,7 +32,7 @@ const ProjectItem= ({id,name,description,onEdit, history})=> {
             description={description}
             avatar={<ProjectOutlined/>}
             />
-        </Item>
+        </ItemContainer>
     </div>
     )
 }

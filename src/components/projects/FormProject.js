@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {Modal, Form, Input} from 'antd';
 
 const FormItem= Form.Item;
@@ -11,6 +11,10 @@ const FormProject= ({show, edit, setShowModal})=> {
     const [loading, setLoading]= useState(false);
     const [hasError, setErros]= useState(false);
 
+    useEffect(()=> {
+
+    },[edit])
+
     function save_project(){
         if (projectName=== null){
             setErros(true);
@@ -18,6 +22,7 @@ const FormProject= ({show, edit, setShowModal})=> {
         else{
             setLoading(true);
             setTimeout(()=> {
+                setProjectName(null);
                 setShowModal(false);
             }, 5000)
         }
@@ -26,7 +31,7 @@ const FormProject= ({show, edit, setShowModal})=> {
     return (
         <Modal 
         visible={show}
-        title={edit? 'Editar Proyecto': 'Nuevo Proyecto'}
+        title={edit!= null? 'Editar Proyecto': 'Nuevo Proyecto'}
         onOk={save_project}
         onCancel={()=> setShowModal(false)}
         okText="Guardar"
@@ -42,7 +47,7 @@ const FormProject= ({show, edit, setShowModal})=> {
                 validateStatus={!hasError? 'success': 'error'}
                 help={!hasError? null: 'Por favor introduce el nombre del proyecto'}
                 >
-                    <Input type="text" placeholder="Introduce el nombre" size="large" onChange={(event)=> setProjectName(event.target.value)}/>
+                    <Input type="text" placeholder="Introduce el nombre" size="large" value={projectName} onChange={(event)=> setProjectName(event.target.value)}/>
                 </FormItem>
             </Form>
         </Modal>

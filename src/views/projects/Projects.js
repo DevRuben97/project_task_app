@@ -15,7 +15,8 @@ const Conteiner = styled.div`
 
 const Projects = () => {
   const [showModal, setShowModal] = useState(false);
-  const [loading, setLoading]= useState(false);
+  const [loading, setLoading] = useState(false);
+  const [projectSelected, setSelected] = useState(null);
 
   const projects = [
     {
@@ -44,23 +45,37 @@ const Projects = () => {
       />
       <Conteiner>
         <div style={{ marginTop: "15px", textAlign: "center" }}>
-          <Skeleton loading={loading} active title={{width: 0}} paragraph={{rows: 5}}>
+          <Skeleton
+            loading={loading}
+            active
+            title={{ width: 0 }}
+            paragraph={{ rows: 5 }}
+          >
             <List
-            itemLayout="horizontal"
-            dataSource={projects}
-            renderItem={item=> (
-              <ProjectItem 
-                name={item.name}
-                onEdit={()=> {
-                  setShowModal(true)
-                }}
-              />
-            )}
+              itemLayout="horizontal"
+              dataSource={projects}
+              renderItem={(item) => (
+                <ProjectItem
+                  name={item.name}
+                  id={item.id}
+                  onEdit={() => {
+                    setShowModal(true);
+                    setSelected(item.id);
+                  }}
+                />
+              )}
             />
           </Skeleton>
         </div>
       </Conteiner>
-      <FormProject show={showModal} setShowModal={setShowModal} edit={false} />
+      <FormProject
+        show={showModal}
+        setShowModal={(value) => {
+          setShowModal(value);
+          setSelected(null);
+        }}
+        edit={projectSelected}
+      />
     </Fragment>
   );
 };

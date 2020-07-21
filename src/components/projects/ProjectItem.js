@@ -1,36 +1,34 @@
 import React from 'react';
-import {Card} from 'antd';
-import {ProjectOutlined} from '@ant-design/icons';
+import {List, Tooltip, Button} from 'antd';
+import {ProjectOutlined, TeamOutlined, EditOutlined, ArrowRightOutlined} from '@ant-design/icons';
 import styled from 'styled-components';
 import {withRouter} from 'react-router-dom'
 
-import {EditOutlined, DownOutlined,CloseOutlined } from '@ant-design/icons';
+const Item= List.Item;
+const Meta= List.Item.Meta;
 
-const CardItem= styled(Card.Grid)`
-width: 25%;
-text-align: center;
-display: flex;
-align-items: center;
-flex-direction: column;
-cursor: pointer;
-}
-`
 
-const ProjectItem= ({projectInfo, history})=> {
+const ProjectItem= ({id,name,description,onEdit, history})=> {
 
     function taskBoard(){
         history.push('TaskBoard');
     }
 
     return (
-    <CardItem onClick={taskBoard}>
-        <div style={{fontSize: '60px'}}>
-            <ProjectOutlined /> 
-        </div>
-        
-        {projectInfo}
-        
-        </CardItem>
+    <div>
+        <Item style={{textAlign: 'left', fontSize: '25px'}} actions={[
+            <Tooltip title="Ir al Tablero"><Button key={id} type="text" onClick={taskBoard}><ArrowRightOutlined /></Button></Tooltip>,
+            <Tooltip title="Ver Miembros"><Button key={id} type="text"><TeamOutlined/></Button></Tooltip>,
+            <Tooltip title="Editar Proyecto"><Button key={id} type="text" onClick={onEdit}><EditOutlined/></Button></Tooltip>
+        ]}
+        >
+            <Meta
+            title={name}
+            description={description}
+            avatar={<ProjectOutlined/>}
+            />
+        </Item>
+    </div>
     )
 }
 

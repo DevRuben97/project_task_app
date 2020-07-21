@@ -1,7 +1,6 @@
 import React, { useState, Fragment } from "react";
 import { withRouter } from "react-router-dom";
-import { Button } from "antd";
-import { PlusCircleOutlined } from "@ant-design/icons";
+import { List, Skeleton } from "antd";
 
 import ProjectItem from "../../components/projects/ProjectItem";
 import FormProject from "../../components/projects/FormProject";
@@ -16,6 +15,7 @@ const Conteiner = styled.div`
 
 const Projects = () => {
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading]= useState(false);
 
   const projects = [
     {
@@ -44,9 +44,20 @@ const Projects = () => {
       />
       <Conteiner>
         <div style={{ marginTop: "15px", textAlign: "center" }}>
-          {projects.map((item, index) => (
-            <ProjectItem projectInfo={item.name} key={index} />
-          ))}
+          <Skeleton loading={loading} active title={{width: 0}} paragraph={{rows: 5}}>
+            <List
+            itemLayout="horizontal"
+            dataSource={projects}
+            renderItem={item=> (
+              <ProjectItem 
+                name={item.name}
+                onEdit={()=> {
+                  setShowModal(true)
+                }}
+              />
+            )}
+            />
+          </Skeleton>
         </div>
       </Conteiner>
       <FormProject show={showModal} setShowModal={setShowModal} edit={false} />
